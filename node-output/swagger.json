@@ -1,0 +1,106 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Smart Pilatez (SPS) Project",
+    "description" : "ATT things",
+    "contact" : {
+      "email" : "sps-admin@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/apilifecare/try1.1/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://pilatez-backend.lifecare.sg",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "Admin log in",
+    "description" : "admin user info"
+  }, {
+    "name" : "Admin log out",
+    "description" : "admin user info"
+  } ],
+  "paths" : {
+    "/AdminUserAccount" : {
+      "post" : {
+        "tags" : [ "Admin log in", "Admin log out" ],
+        "summary" : "admin info",
+        "description" : "Login/logout admin account",
+        "operationId" : "logged in/out",
+        "requestBody" : {
+          "description" : "Admin login/logout info",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/InventoryItem"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "logged in/logged out successfully"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "InventoryItem" : {
+        "required" : [ "id", "manufacturer", "name", "releaseDate" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "Password" : {
+            "type" : "string",
+            "example" : "Astralink1234#"
+          },
+          "releaseDate" : {
+            "type" : "string",
+            "format" : "date-time",
+            "example" : "2016-08-29T09:12:33.001Z"
+          },
+          "manufacturer" : {
+            "$ref" : "#/components/schemas/Manufacturer"
+          }
+        }
+      },
+      "Manufacturer" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "admin user"
+          },
+          "weblogin" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://pilatez-backend.lifecare.sg/sps/authentication/webLogin"
+          },
+          "weblogout" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://pilatez-backend.lifecare.sg/sps/authentication/webLogout"
+          }
+        }
+      }
+    }
+  }
+}
